@@ -22,20 +22,24 @@ public class ConvertProcess {
         this(root, null);
     }
     
+    
     public ConvertProcess(URI root, ProcessArguments args) {
         this.root = ClientUtil.createClient().target(root);
         this.args = args;
     }
     
+    
     public ProcessStatus getStatus() {
         return root.request(APPLICATION_JSON).get(ProcessStatus.class);
     }
     
-    public void startConvertion(File file) throws ParseException, FileNotFoundException {
+    
+    public void startConversion(File file) throws ParseException, FileNotFoundException {
         startConversion(new FileDataBodyPart("file", file));
     }
     
-    public void startConvertion(InputStream input, String filename) throws ParseException {
+    
+    public void startConversion(InputStream input, String filename) throws ParseException {
         StreamDataBodyPart filePart = new StreamDataBodyPart("file", input);
         FormDataContentDispositionBuilder builder = FormDataContentDisposition.name("file")
                                                                               .fileName(filename);
@@ -47,7 +51,7 @@ public class ConvertProcess {
     private void startConversion(BodyPart bodyPart) {
         
         if (args == null)
-            throw new IllegalStateException("No convertion arguments set.");
+            throw new IllegalStateException("No conversion arguments set.");
         
         MultiPart multipart = new FormDataMultiPart().field("input", "upload")
                                                      .field("outputformat", args.outputformat)
@@ -65,12 +69,6 @@ public class ConvertProcess {
     
     public void cancel() {
         root.path("cancel").request().get();
-    }
-    
-    
-    @Override
-    public String toString() {
-        return String.format("%s[root: %s]", getClass().getSimpleName(), root);
     }
     
 }
