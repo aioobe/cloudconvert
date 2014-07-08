@@ -9,6 +9,7 @@
 // Create service object
 CloudConvertService service = new CloudConvertService("<api key>");
 
+
 // Create conversion process
 ConvertProcess process = service.startProcess("jpg", "png");
 
@@ -17,12 +18,13 @@ process.startConversion(new File("test.jpg"));
 
 // Wait for result
 ProcessStatus status;
-while (true) {
+waitLoop: while (true) {
     status = process.getStatus();
-    if (status.step.equals("finished"))
-        break;
-    else if (status.step.equals("error"))
-        throw new RuntimeException(status.message);
+    
+    switch (status.step) {
+    case FINISHED: break waitLoop;
+    case ERROR: throw new RuntimeException(status.message);
+    }
     
     // Be gentle
     Thread.sleep(200);
@@ -34,4 +36,3 @@ service.download(status.output.url, new File("output.png"));
 // Clean up
 process.delete();
 ```
-
