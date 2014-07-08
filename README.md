@@ -9,7 +9,6 @@
 // Create service object
 CloudConvertService service = new CloudConvertService("<api key>");
 
-
 // Create conversion process
 ConvertProcess process = service.startProcess("jpg", "png");
 

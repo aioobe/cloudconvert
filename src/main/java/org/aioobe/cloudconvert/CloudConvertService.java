@@ -16,7 +16,7 @@ public class CloudConvertService {
     String apiKey;
     WebTarget apiRoot;
     
-    CloudConvertService(String apiKey) {
+    public CloudConvertService(String apiKey) {
         this.apiKey = apiKey;
         apiRoot = ClientUtil.createClient().target(API_ROOT);
     }

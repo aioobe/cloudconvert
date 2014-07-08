@@ -8,7 +8,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 
 public class ProcessStatus {
     
-    
     public static enum Step {
         /** Input file is downloaded, e.g. from a URL or S3 storage. */
         INPUT,
