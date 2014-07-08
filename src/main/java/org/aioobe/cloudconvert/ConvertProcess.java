@@ -30,11 +30,14 @@ public class ConvertProcess {
     
     
     public ProcessStatus getStatus() {
-        return root.request(APPLICATION_JSON).get(ProcessStatus.class);
+        return root.request(APPLICATION_JSON)
+                   .get(ProcessStatus.class);
     }
     
     
     public void startConversion(File file) throws ParseException, FileNotFoundException {
+        if (!file.exists())
+            throw new FileNotFoundException("File not found: " + file);
         startConversion(new FileDataBodyPart("file", file));
     }
     
