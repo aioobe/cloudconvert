@@ -16,12 +16,17 @@ public class CloudConvertService {
     String apiKey;
     WebTarget apiRoot;
     
+    /**
+     * Constructs a {@code CloudConvertService} with the given API key.
+     */
     public CloudConvertService(String apiKey) {
         this.apiKey = apiKey;
         apiRoot = ClientUtil.createClient().target(API_ROOT);
     }
     
-    
+    /**
+     * Starts a conversion process and returns the associated {@code ConvertProcess} object.
+     */
     public ConvertProcess startProcess(String inputFormat, String outputFormat) throws URISyntaxException {
         ProcessArguments args = new ProcessArguments(apiKey, inputFormat, outputFormat);
         ProcessResponse response = apiRoot.path("process")
@@ -32,21 +37,19 @@ public class CloudConvertService {
         return new ConvertProcess(response.url, args);
     }
     
-    
+    /**
+     * Returns a list of the currently running conversion processes.
+     */
     public List<ProcessEntry> listRunningProcesses() {
         return apiRoot.path("processes")
                       .queryParam("apikey", apiKey)
                       .request(APPLICATION_JSON)
                       .get(new GenericType<List<ProcessEntry>>() {});
     }
-    
-    
-    @Override
-    public String toString() {
-        return String.format("%s[apiKey: %s]", getClass().getSimpleName(), apiKey);
-    }
 
-
+    /**
+     * Helper method for downloading a URL to a file.
+     */
     public void download(URI url, File dest) throws IOException {
         InputStream is = new BufferedInputStream(download(url));
         
@@ -60,8 +63,16 @@ public class CloudConvertService {
         fos.close();
         is.close();
     }
-    
+
+    /**
+     * Get an InputStream for downloading of a specific URL.
+     */
     public InputStream download(URI url) {
         return ClientBuilder.newClient().target(url).request().get(InputStream.class);
+    }
+    
+    @Override
+    public String toString() {
+        return String.format("%s[apiKey: %s]", getClass().getSimpleName(), apiKey);
     }
 }

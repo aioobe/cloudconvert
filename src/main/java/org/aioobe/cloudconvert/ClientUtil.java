@@ -7,6 +7,9 @@ import org.glassfish.jersey.media.multipart.MultiPartFeature;
 
 public class ClientUtil {
     
+    /**
+     * Creates a CloudConvert {@code Client} object.
+     */
     public static Client createClient() {
         return ClientBuilder.newBuilder()
                             .register(JacksonFeature.class)

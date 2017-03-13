@@ -18,23 +18,32 @@ public class ConvertProcess {
     WebTarget root;
     ProcessArguments args;
     
+    /**
+     * Creates a {@code ConvertProcess} for the given URI.
+     */
     public ConvertProcess(URI root) {
         this(root, null);
     }
     
-    
+    /**
+     * Creates a {@code ConvertProcess} for the given URI and process arguments.
+     */
     public ConvertProcess(URI root, ProcessArguments args) {
         this.root = ClientUtil.createClient().target(root);
         this.args = args;
     }
     
-    
+    /**
+     * Retrieves the current status of the conversion process.
+     */
     public ProcessStatus getStatus() {
         return root.request(APPLICATION_JSON)
                    .get(ProcessStatus.class);
     }
     
-    
+    /**
+     * Starts the conversion process for a given file.
+     */
     public void startConversion(File file) throws ParseException, FileNotFoundException {
         if (!file.exists())
             throw new FileNotFoundException("File not found: " + file);
@@ -42,6 +51,9 @@ public class ConvertProcess {
     }
     
     
+    /**
+     * Starts the conversion process for a given {@code InputStream} and file name.
+     */
     public void startConversion(InputStream input, String filename) throws ParseException {
         StreamDataBodyPart filePart = new StreamDataBodyPart("file", input);
         FormDataContentDispositionBuilder builder = FormDataContentDisposition.name("file")
@@ -50,7 +62,9 @@ public class ConvertProcess {
         startConversion(filePart);
     }
     
-    
+    /**
+     * Starts the conversion process for a given {@code BodyPart}.
+     */
     private void startConversion(BodyPart bodyPart) {
         
         if (args == null)
@@ -64,12 +78,16 @@ public class ConvertProcess {
             .post(Entity.entity(multipart, multipart.getMediaType()));
     }
     
-    
+    /**
+     * Deletes the conversion process.
+     */
     public void delete() {
         root.path("delete").request().get();
     }
     
-    
+    /**
+     * Cancels the conversion process.
+     */
     public void cancel() {
         root.path("cancel").request().get();
     }
