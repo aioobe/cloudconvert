@@ -2,6 +2,15 @@
 
 [Jersey-client](https://jersey.java.net/documentation/2.7/user-guide.html#client) based implementation of the [CloudConvert.org REST API](https://cloudconvert.org/page/api).
 
+## Dependency
+
+```
+<dependency>
+    <groupId>org.aioobe.cloudconvert</groupId>
+    <artifactId>client</artifactId>
+    <version>1.0</version>
+</dependency>
+```
 
 ## Example Usage
 
