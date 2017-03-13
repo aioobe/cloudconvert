@@ -8,7 +8,8 @@
     <groupId>org.aioobe.cloudconvert</groupId>
     <artifactId>client</artifactId>
     <version>1.0</version>
-</dependency>```
+</dependency>
+```
 
 ## Example Usage
 
