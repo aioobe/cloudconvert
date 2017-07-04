@@ -11,7 +11,7 @@ import javax.ws.rs.core.GenericType;
 
 public class CloudConvertService {
     
-    private final static String API_ROOT = "https://api.cloudconvert.org";
+    private final static String API_ROOT = "https://api.cloudconvert.com";
     
     String apiKey;
     WebTarget apiRoot;

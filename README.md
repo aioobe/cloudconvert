@@ -1,6 +1,6 @@
 # CloudConvert Java API
 
-[Jersey-client](https://jersey.java.net/documentation/2.7/user-guide.html#client) based implementation of the [CloudConvert.org REST API](https://cloudconvert.org/page/api).
+[Jersey-client](https://jersey.java.net/documentation/2.7/user-guide.html#client) based implementation of the [CloudConvert.com REST API](https://cloudconvert.com/api).
 
 ## Dependency
 
